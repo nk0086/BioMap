@@ -1,0 +1,47 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+    <title>{{.Title}}</title>
+    <style>
+	#map {
+	    height: 100%;
+	}
+	header {
+	    background-color: #f0f0f0;
+	    color: #fff;
+	    padding: 90px;
+	}
+
+	.header-logo {
+	    float: left;
+	    padding: 20px 40px;
+	    font-size: 36px;
+	    font-weight: bold;
+	}
+
+	.header-menus li {
+	    float: left;
+	    list-style: none;
+	    padding: 33px 20px;
+	}
+    </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-logo">
+	<a href="/">{{.Title}}</a> 
+    </div>
+    <ul class="header-menus">
+      <li><a href="/contents">Contents</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/login">Login</a></li>
+    </ul>
+  </header>
+
+{{end}}
