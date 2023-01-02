@@ -1,7 +1,5 @@
 {{template "header" .}}
 
-<p>自宅の地図です。</p>
-
 <div id="map" style="width:620px; height:400px"></div>
 
 <script type="text/javascript">
@@ -50,12 +48,23 @@ if (navigator.geolocation) {
 }
 </script>
 
-<form id="form">
-    <label for="lat">緯度</label><br>
-    <input type="text" id="lat" name="lat"><br>
-    <label for="lng">経度</label><br>
-    <input type="text" id="lng" name="lng"><br>
-    <input type="submit" value="Submit">
+<h1>登録<h1>
+<p>登録したい場所をクリックしてください</p>
+<form action="/register" method="post">
+  <input type="hidden" name="lat" id="lat">
+  <input type="hidden" name="lng" id="lng">
+  <input type="submit" value="登録">
 </form>
+
+<script type="text/javascript">
+google.maps.event.addListener(map, 'click', function(event) {
+  document.getElementById("lat").value = event.latLng.lat();
+  document.getElementById("lng").value = event.latLng.lng();
+});
+</script>
+
+<p> <a href="/list">登録場所一覧</a> </p>
+
+
 
 {{template "footer"}}
