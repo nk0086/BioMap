@@ -18,11 +18,13 @@ var templates = make(map[string]*template.Template)
 func main() {
 	port := "8080"
 
+	// メインページ：マップへの生物分布の表示、検索
 	templates["index"] = loadTemplate("index")
 	http.HandleFunc("/", handleIndex)
 
-	templates["contents"] = loadTemplate("contents")
-	http.HandleFunc("/contents", handleContents)
+	// 生物の情報を登録
+	templates["register"] = loadTemplate("register")
+	http.HandleFunc("/register", handleRegister)
 
 	http.HandleFunc("/login", oauth.LoginHandler)
 	http.HandleFunc("/about", oauth.CallbackHandler)
@@ -53,13 +55,13 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func handleContents(w http.ResponseWriter, r *http.Request) {
+func handleRegister(w http.ResponseWriter, r *http.Request) {
 	page := Page{
 		Title: "BioMap",
 		Body:  "This is a test",
 	}
 
-	if err := templates["contents"].Execute(w, page); err != nil {
+	if err := templates["register"].Execute(w, page); err != nil {
 		log.Printf("failed to execute template: %v", err)
 	}
 
