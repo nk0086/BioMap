@@ -14,11 +14,19 @@
 
 <script type="text/javascript">
 function initMap() {
-  var opts = {
-    zoom: 5,
-      center: {lat: 37.09024, lng: 135.712891},
-  };
-  var map = new google.maps.Map(document.getElementById("map"), opts);
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 5,
+        center: {lat: 37.09024, lng: 135.712891},
+    });
+    
+    {{ range .Organisms}}
+	var marker = new google.maps.Marker({
+    	        position: {lat: {{.Lat}}, lng: {{.Lng}}},
+    	        map: map,
+    	        title: {{.Name}}
+    	});
+    {{ end }}
+    //var map = new google.maps.Map(document.getElementById("map"), opts);
 }
 </script>
 
@@ -26,37 +34,6 @@ function initMap() {
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIqkDhXO8PFE1e0r7pqTVMzQU3l2WsOp0&callback=initMap">
 </script>
 
-
-<script type="text/javascript">
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-
-    // Use the position to set the map center
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: pos,
-      zoom: 8
-    });
-
-    // Add a marker to the map at the current position
-    var marker = new google.maps.Marker({
-      position: pos,
-      map: map
-    });
-  }, function() {
-    handleLocationError(true, infoWindow, map.getCenter());
-  });
-} else {
-    var opts = {
-	zoom: 5,
-	center: {lat: 37.09024, lng: 135.712891},
-    };
-    var map = new google.maps.Map(document.getElementById("map"), opts);
-}
-</script>
 
 <form id="form">
     <label for="lat">緯度</label><br>

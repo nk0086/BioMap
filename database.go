@@ -74,3 +74,8 @@ func selectAllFromTable(db *sql.DB) ([]*Organism, error) {
 
 	return organisms, rows.Err()
 }
+
+func deleteFromTable(db *sql.DB, id int64) error {
+	_, err := db.Exec(`DELETE FROM organisms WHERE id = ?`, id)
+	return err
+}

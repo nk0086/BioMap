@@ -77,9 +77,24 @@ func handleList(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
+	db, err := connectToDatabase("database.db")
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	defer db.Close()
+
+	organisms, err := selectAllFromTable(db)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
 	page := Page{
-		Title: "BioMap",
-		Body:  "This is a test",
+		Title:     "BioMap",
+		Body:      "This is a test",
+		Organisms: organisms,
 	}
 
 	if err := templates["index"].Execute(w, page); err != nil {
