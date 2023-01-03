@@ -49,22 +49,16 @@ if (navigator.geolocation) {
 </script>
 
 <h1>登録<h1>
-<p>登録したい場所をクリックしてください</p>
-<form action="/register" method="post">
-  <input type="hidden" name="lat" id="lat">
-  <input type="hidden" name="lng" id="lng">
+<form action="/register" method="post" enctype="multipart/form-data">
+  <label for="name">生物名:</label>
+  <input type="text" id="name" name="name"><br>
+  <label for="image">画像:</label>
+  <input type="file" id="image" name="image"><br>
+  <label for="latitude">緯度:</label>
+  <input type="number" id="latitude" name="latitude"><br>
+  <label for="longitude">経度:</label>
+  <input type="number" id="longitude" name="longitude"><br>
   <input type="submit" value="登録">
 </form>
-
-<script type="text/javascript">
-google.maps.event.addListener(map, 'click', function(event) {
-  document.getElementById("lat").value = event.latLng.lat();
-  document.getElementById("lng").value = event.latLng.lng();
-});
-</script>
-
-<p> <a href="/list">登録場所一覧</a> </p>
-
-
 
 {{template "footer"}}

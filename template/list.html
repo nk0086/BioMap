@@ -1,0 +1,23 @@
+{{template "header" .}}
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>名前</th>
+    <th>画像</th>
+    <th>緯度</th>
+    <th>経度</th>
+  </tr>
+  {{range .Organisms}}
+  <tr>
+    <td>{{.ID}}</td>
+    <td>{{.Name}}</td>
+    <td><img src="data:image/png;base64,{{.Image}}" alt="画像"></td>
+    <td>{{.Lat}}</td>
+    <td>{{.Lng}}</td>
+  </tr>
+  {{end}}
+</table>
+
+
+{{template "footer"}}
