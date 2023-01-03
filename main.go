@@ -6,8 +6,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-
-	"example.com/bio-map/oauth"
 )
 
 type Page struct {
@@ -33,8 +31,8 @@ func main() {
 	templates["list"] = loadTemplate("list")
 	http.HandleFunc("/list", handleList)
 
-	http.HandleFunc("/login", oauth.LoginHandler)
-	http.HandleFunc("/about", oauth.CallbackHandler)
+	//http.HandleFunc("/login", oauth.LoginHandler)
+	//http.HandleFunc("/about", oauth.CallbackHandler)
 	http.ListenAndServe(":"+port, nil)
 }
 

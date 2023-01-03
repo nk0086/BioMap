@@ -1,15 +1,7 @@
 {{template "header" .}}
 
-<p> ここでは、登録された生物の分布を地図上に表示します。</p>
+<p>このサイトでは、登録した生物の位置情報を表示し生物の分布の可視化を行います。</p>
 <a href="/contents">ここから、生物の登録を行うことができます。</a>
-<ul>
-    <p>できること</p>
-    <li>生物の分布</li>
-    <li>年代毎の分布の変化</li>
-    <li>国内外来種の分布</li>
-    <li>自身の記録の確認</li>
-</ul>
-
 <div id="map" style="width:620px; height:400px"></div>
 
 <script type="text/javascript">
@@ -34,13 +26,5 @@ function initMap() {
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIqkDhXO8PFE1e0r7pqTVMzQU3l2WsOp0&callback=initMap">
 </script>
 
-
-<form id="form">
-    <label for="lat">緯度</label><br>
-    <input type="text" id="lat" name="lat"><br>
-    <label for="lng">経度</label><br>
-    <input type="text" id="lng" name="lng"><br>
-    <input type="submit" value="Submit">
-</form>
 
 {{template "footer"}}

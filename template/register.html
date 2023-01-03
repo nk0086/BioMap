@@ -4,12 +4,31 @@
 
 <script type="text/javascript">
 function initMap() {
-  var opts = {
-    zoom: 5,
-      center: {lat: 37.09024, lng: 135.712891},
-  };
-  var map = new google.maps.Map(document.getElementById("map"), opts);
+    var opts = {
+	zoom: 5,
+        center: {lat: 37.09024, lng: 135.712891},
+    };
+    var map = new google.maps.Map(document.getElementById("map"), opts);
+
+    var marker;
+    map.addListener('click', function(e) {
+	//マーカーを削除
+	if (marker) {
+	    marker.setMap(null);
+	}
+
+	//マーカーを設定
+	marker = new google.maps.Marker({
+	    position: e.latLng,
+	    map: map,
+	});
+
+	//マーカーの位置情報をフォームに設定
+	document.getElementById("latitude").value = e.latLng.lat();
+	document.getElementById("longitude").value = e.latLng.lng();
+    });
 }
+
 </script>
 
 <script async defer
@@ -48,6 +67,8 @@ if (navigator.geolocation) {
 }
 </script>
 
+
+
 <h1>登録<h1>
 <form action="/register" method="post" enctype="multipart/form-data">
   <label for="name">生物名:</label>
@@ -55,9 +76,9 @@ if (navigator.geolocation) {
   <label for="image">画像:</label>
   <input type="file" id="image" name="image"><br>
   <label for="latitude">緯度:</label>
-  <input type="number" id="latitude" name="latitude"><br>
+  <input type="text" id="latitude" name="latitude"><br>
   <label for="longitude">経度:</label>
-  <input type="number" id="longitude" name="longitude"><br>
+  <input type="text" id="longitude" name="longitude"><br>
   <input type="submit" value="登録">
 </form>
 
