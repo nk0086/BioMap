@@ -5,19 +5,28 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
+
+	"github.com/joho/godotenv"
 )
 
 type Page struct {
 	Title     string
 	Body      string
 	Organisms []*Organism
+	Mapi      string
 }
 
 var templates = make(map[string]*template.Template)
 
 func main() {
 	port := "8080"
+	// .envファイルのAPIKEYを読み込む
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	// メインページ：マップへの生物分布の表示、検索
 	templates["index"] = loadTemplate("index")
@@ -89,10 +98,12 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	apiKey := os.Getenv("API_KEY")
 	page := Page{
 		Title:     "BioMap",
 		Body:      "This is a test",
 		Organisms: organisms,
+		Mapi:      apiKey,
 	}
 
 	if err := templates["index"].Execute(w, page); err != nil {
@@ -146,12 +157,14 @@ func handleRegister(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/register", http.StatusFound)
 
 	} else {
+		apiKey := os.Getenv("API_KEY")
 		page := Page{
 			Title: "BioMap",
 			Body:  "This is a test",
+			Mapi:  apiKey,
 		}
 
-		if err := templates["register"].Execute(w, page); err != nil {
+		if err := templates["index"].Execute(w, page); err != nil {
 			log.Printf("failed to execute template: %v", err)
 		}
 	}
