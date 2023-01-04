@@ -113,6 +113,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 
 func handleRegister(w http.ResponseWriter, r *http.Request) {
 	//生物情報を登録する
+	apiKey := os.Getenv("API_KEY")
 	if r.Method == "POST" {
 		if err := r.ParseMultipartForm(1024); err != nil {
 			http.Error(w, err.Error(), 500)
@@ -157,14 +158,13 @@ func handleRegister(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/register", http.StatusFound)
 
 	} else {
-		apiKey := os.Getenv("API_KEY")
 		page := Page{
 			Title: "BioMap",
 			Body:  "This is a test",
 			Mapi:  apiKey,
 		}
 
-		if err := templates["index"].Execute(w, page); err != nil {
+		if err := templates["register"].Execute(w, page); err != nil {
 			log.Printf("failed to execute template: %v", err)
 		}
 	}
